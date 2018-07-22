@@ -1,4 +1,4 @@
-package com.jean.pedidopj.services;
+package com.jean.pedidopj.exceptions;
 
 import java.io.Serializable;
 
