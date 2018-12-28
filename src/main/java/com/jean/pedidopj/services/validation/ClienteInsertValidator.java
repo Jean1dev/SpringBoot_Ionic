@@ -11,8 +11,15 @@ import com.jean.pedidopj.dto.ClienteNewDTO;
 import com.jean.pedidopj.exceptions.FieldMessage;
 import com.jean.pedidopj.services.validation.utils.BR;
 import com.jean.pedidopj.services.validation.ClienteInsert ;
+import org.springframework.beans.factory.annotation.Autowired;
+ 
+import com.jean.pedidopj.domain.Cliente;
+import com.jean.pedidopj.repositories.ClienteRepository;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
+
+	@Autowired
+	private ClienteRepository repo;
 
 	@Override
 	public void initialize(ClienteInsert ann) {
@@ -22,6 +29,11 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
 		
 		List<FieldMessage> list = new ArrayList<>();
+
+		Cliente aux = repo.findByEmail(objDto.getEmail());
+		if (aux != null) {
+			list.add(new FieldMessage("email", "Email já existente"));
+		}
 		
 		if (objDto.getTipo().equals(TipoCliente.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDto.getCpfOuCnpj())) {
 			list.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
