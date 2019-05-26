@@ -14,10 +14,10 @@ import security.UserSS;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
- 	@Autowired
+	@Autowired
 	private ClienteRepository repo;
-
- 	@Override
+	
+	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Cliente cli = repo.findByEmail(email);
 		if (cli == null) {

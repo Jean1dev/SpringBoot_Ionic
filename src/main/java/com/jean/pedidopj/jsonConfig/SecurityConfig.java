@@ -26,7 +26,7 @@ import security.JWTUtil;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
+	//@Autowired
 	private JWTUtil jwtUtil;
 	
 	@Autowired
