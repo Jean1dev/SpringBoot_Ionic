@@ -1,35 +1,14 @@
 package com.jean.pedidopj.services;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
+import com.jean.pedidopj.domain.*;
+import com.jean.pedidopj.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.jean.pedidopj.domain.Categoria;
-import com.jean.pedidopj.domain.Cidade;
-import com.jean.pedidopj.domain.Cliente;
-import com.jean.pedidopj.domain.Endereco;
-import com.jean.pedidopj.domain.Estado;
-import com.jean.pedidopj.domain.EstadoPagamento;
-import com.jean.pedidopj.domain.ItemPedido;
-import com.jean.pedidopj.domain.Pagamento;
-import com.jean.pedidopj.domain.PagamentoComBoleto;
-import com.jean.pedidopj.domain.PagamentoComCartao;
-import com.jean.pedidopj.domain.Pedido;
-import com.jean.pedidopj.domain.Perfil;
-import com.jean.pedidopj.domain.Produto;
-import com.jean.pedidopj.domain.TipoCliente;
-import com.jean.pedidopj.repositories.CategoriaRepository;
-import com.jean.pedidopj.repositories.CidadeRepository;
-import com.jean.pedidopj.repositories.ClienteRepository;
-import com.jean.pedidopj.repositories.EnderecoRepository;
-import com.jean.pedidopj.repositories.EstadoRepository;
-import com.jean.pedidopj.repositories.ItemPedidoRepository;
-import com.jean.pedidopj.repositories.PagamentoRepository;
-import com.jean.pedidopj.repositories.PedidoRepository;
-import com.jean.pedidopj.repositories.ProdutoRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 @Service
 public class DBService {
@@ -115,7 +94,7 @@ public class DBService {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("123"));
-		Cliente cli2 = new Cliente(null, "Ana Costa", "nelio.iftm@gmail.com", "31628382740", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		Cliente cli2 = new Cliente(null, "Ana Costa", "jeanluca@bol.com", "31628382740", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli2.getTelefones().addAll(Arrays.asList("93883321", "34252625"));
 		cli2.addPerfil(Perfil.ADMIN);
 		

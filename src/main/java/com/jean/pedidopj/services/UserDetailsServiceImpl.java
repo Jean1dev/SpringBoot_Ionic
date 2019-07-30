@@ -1,15 +1,13 @@
 package com.jean.pedidopj.services;
 
+import com.jean.pedidopj.domain.Cliente;
+import com.jean.pedidopj.repositories.ClienteRepository;
+import com.jean.pedidopj.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.jean.pedidopj.domain.Cliente;
-import com.jean.pedidopj.repositories.ClienteRepository;
-
-import security.UserSS;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

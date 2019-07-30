@@ -1,19 +1,20 @@
 package com.jean.pedidopj.services;
 
-import java.util.Optional;
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.jean.pedidopj.domain.EstadoPagamento;
-import com.jean.pedidopj.domain.ItemPedido;
-import com.jean.pedidopj.domain.PagamentoComBoleto;
-import com.jean.pedidopj.domain.Pedido;
+import com.jean.pedidopj.domain.*;
+import com.jean.pedidopj.exceptions.AuthorizationException;
 import com.jean.pedidopj.exceptions.ObjectNotFoundException;
 import com.jean.pedidopj.repositories.ItemPedidoRepository;
 import com.jean.pedidopj.repositories.PagamentoRepository;
 import com.jean.pedidopj.repositories.PedidoRepository;
+import com.jean.pedidopj.security.UserSS;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.Optional;
 
 
 @Service
@@ -69,6 +70,17 @@ public class PedidoService {
 		//emailService.sendOrderConfirmationEmail(obj);
 		emailService.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
+	}
+
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS userSS = UserService.authenticated();
+		if (userSS == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		Cliente cliente = clienteService.find(userSS.getId());
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+		return repo.findByCliente(cliente, pageRequest);
 	}
 
 }

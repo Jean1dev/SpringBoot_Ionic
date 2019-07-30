@@ -1,5 +1,8 @@
 package com.jean.pedidopj.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -8,41 +11,29 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Entity
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date instante;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
 	private Pagamento pagamento;
 
 	@ManyToOne
-	@JoinColumn(name = "cliente_id")
+	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 
 	@ManyToOne
-	@JoinColumn(name = "endereco_de_entrega_id")
+	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 
-	@OneToMany(mappedBy = "id.pedido")
+	@OneToMany(mappedBy="id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 
 	public Pedido() {
@@ -136,7 +127,7 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
@@ -158,5 +149,4 @@ public class Pedido implements Serializable {
 		builder.append(nf.format(getValorTotal()));
 		return builder.toString();
 	}
-
 }

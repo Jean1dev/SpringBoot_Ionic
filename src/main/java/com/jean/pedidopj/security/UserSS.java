@@ -1,14 +1,13 @@
-package security;
+package com.jean.pedidopj.security;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import com.jean.pedidopj.domain.Perfil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.jean.pedidopj.domain.Perfil;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserSS implements UserDetails {
 	private static final long serialVersionUID = 1L;
@@ -67,4 +66,8 @@ public class UserSS implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
+    public boolean hasRole(Perfil perfil) {
+ 		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+    }
 }

@@ -1,8 +1,14 @@
 package com.jean.pedidopj.services;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.jean.pedidopj.domain.*;
+import com.jean.pedidopj.dto.ClienteDTO;
+import com.jean.pedidopj.dto.ClienteNewDTO;
+import com.jean.pedidopj.exceptions.AuthorizationException;
+import com.jean.pedidopj.exceptions.DataIntegrityException;
+import com.jean.pedidopj.exceptions.ObjectNotFoundException;
+import com.jean.pedidopj.repositories.ClienteRepository;
+import com.jean.pedidopj.repositories.EnderecoRepository;
+import com.jean.pedidopj.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -12,17 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jean.pedidopj.domain.Categoria;
-import com.jean.pedidopj.domain.Cidade;
-import com.jean.pedidopj.domain.Cliente;
-import com.jean.pedidopj.domain.Endereco;
-import com.jean.pedidopj.domain.TipoCliente;
-import com.jean.pedidopj.dto.ClienteDTO;
-import com.jean.pedidopj.dto.ClienteNewDTO;
-import com.jean.pedidopj.repositories.ClienteRepository;
-import com.jean.pedidopj.repositories.EnderecoRepository;
-import com.jean.pedidopj.exceptions.DataIntegrityException;
-import com.jean.pedidopj.exceptions.ObjectNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 
@@ -38,6 +35,11 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
+		UserSS userSS = UserService.authenticated();
+		if ( userSS == null || !userSS.hasRole(Perfil.ADMIN) && !id.equals(userSS.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
