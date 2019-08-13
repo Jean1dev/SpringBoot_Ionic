@@ -1,5 +1,7 @@
 package com.example.jmstemplate.jmsExample.config;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,13 +15,29 @@ import javax.jms.ConnectionFactory;
 @EnableJms
 public class jmsConfig {
 
+    @Value("${spring.activemq.broker-url}")
+    private String brokerUrl;
+
+    @Value("${spring.activemq.user}")
+    private String user;
+
+    @Value("${spring.activemq.password}")
+    private String password;
+
     @Bean
-    public JmsListenerContainerFactory<?> jmsFactory(ConnectionFactory connectionFactory,
-                                                     DefaultJmsListenerContainerFactoryConfigurer configurer) {
+    public ActiveMQConnectionFactory connectionFactory() {
+        if ("".equals(user)) {
+            return new ActiveMQConnectionFactory(brokerUrl);
+        }
+        return new ActiveMQConnectionFactory(user, password, brokerUrl);
+    }
+
+    @Bean
+    public JmsListenerContainerFactory jmsFactoryTopic(ConnectionFactory connectionFactory,
+                                                       DefaultJmsListenerContainerFactoryConfigurer configurer) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        // This provides all boot's default to this factory, including the message converter
         configurer.configure(factory, connectionFactory);
-        // You could still override some of Boot's default if necessary.
+        factory.setPubSubDomain(true);
         return factory;
     }
 }

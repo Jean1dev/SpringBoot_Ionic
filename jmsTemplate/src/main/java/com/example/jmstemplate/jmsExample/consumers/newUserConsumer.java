@@ -1,13 +1,25 @@
 package com.example.jmstemplate.jmsExample.consumers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class newUserConsumer {
 
-    @JmsListener(destination = "login", containerFactory = "jmsFactory")
-    public void onMessage(String message) {
-        System.out.println(message);
+    @Autowired private JmsTemplate jmsTemplate;
+
+    // Ouvindo um topico
+    @JmsListener(destination = "topic.sample", containerFactory = "jmsFactoryTopic")
+    public void onReceiverTopic(String str) {
+        System.out.println(str);
+        jmsTemplate.convertAndSend("queue.sample", "ENVIANDO VIA CLIENT");
+    }
+
+    //Ouvindo uma fila
+    @JmsListener(destination = "queue.sample")
+    public void onReceiverQueue(String str) {
+        System.out.println( str );
     }
 }
