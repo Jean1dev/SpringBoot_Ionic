@@ -21,5 +21,6 @@ public class newUserConsumer {
     @JmsListener(destination = "queue.sample")
     public void onReceiverQueue(String str) {
         System.out.println( str );
+        jmsTemplate.convertAndSend("topic.sample", "ENVIANDO VIA CLIENT");
     }
 }

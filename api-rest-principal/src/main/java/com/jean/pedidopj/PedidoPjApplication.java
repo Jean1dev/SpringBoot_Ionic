@@ -18,10 +18,10 @@ public class PedidoPjApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		jmsTemplate.convertAndSend("queue.sample", "MENSAGEM PARA FILA 1");
-		jmsTemplate.convertAndSend("queue.sample", "MENSAGEM PARA FILA 2");
-		jmsTemplate.convertAndSend("queue.sample", "MENSAGEM PARA FILA 3");
-		jmsTemplate.convertAndSend("queue.sample", "MENSAGEM PARA FILA 4");
-		jmsTemplateTopic.convertAndSend("topic.sample", "MENSAGEM PARA O TOPICO");
+//		jmsTemplate.convertAndSend("queue.sample", "MENSAGEM PARA FILA 1");
+//		jmsTemplate.convertAndSend("queue.sample", "MENSAGEM PARA FILA 2");
+//		jmsTemplate.convertAndSend("queue.sample", "MENSAGEM PARA FILA 3");
+//		jmsTemplate.convertAndSend("queue.sample", "MENSAGEM PARA FILA 4");
+//		jmsTemplateTopic.convertAndSend("topic.sample", "MENSAGEM PARA O TOPICO");
 	}
 }

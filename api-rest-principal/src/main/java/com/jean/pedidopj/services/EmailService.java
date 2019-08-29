@@ -2,6 +2,7 @@ package com.jean.pedidopj.services;
 
 import javax.mail.internet.MimeMessage;
 
+import com.jean.pedidopj.domain.Cliente;
 import org.springframework.mail.SimpleMailMessage;
 
 import com.jean.pedidopj.domain.Pedido;
@@ -15,4 +16,6 @@ public interface EmailService {
 	void sendOrderConfirmationHtmlEmail(Pedido obj);
 
  	void sendHtmlEmail(MimeMessage msg);
+
+ 	void sendNewPasswordEmail(Cliente cliente, String password);
 }

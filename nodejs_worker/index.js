@@ -6,8 +6,8 @@ const connectOptions = {
     'port': 61613,
     'connectHeaders': {
         'host': '/',
-        'login': 'username',
-        'passcode': 'password',
+        'login': '',
+        'passcode': '',
         'heart-beat': '5000,5000'
     }
 };
@@ -24,12 +24,12 @@ stompit.connect(connectOptions, function (error, client) {
         return;
     }
 
-    var frame = client.send(sendParams);
+    var frame = client.send(sendParams); 
     
     frame.end('enviado via worker');
 
     const subscribeInQueue = {
-        'destination': 'queuee.sample',
+        'destination': 'queue.sample',
         'ack': 'client-individual'
     };
 
@@ -38,10 +38,10 @@ stompit.connect(connectOptions, function (error, client) {
         'ack': 'client-individual'
     }
 
-    client.subscribe(subscribeInTopic, (error, message) => {
-        console.log(message)
-        client.ack(message);
-    })
+    // client.subscribe(subscribeInTopic, (error, message) => {
+    //     console.log(message)
+    //     client.ack(message);
+    // })
 
     client.subscribe(subscribeInQueue, function (error, message) {
 
