@@ -3,8 +3,8 @@ package com.jean.pedidopj.services.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 import com.jean.pedidopj.domain.TipoCliente;
 import com.jean.pedidopj.dto.ClienteNewDTO;

@@ -1,6 +1,6 @@
 package com.jean.pedidopj.domain;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
