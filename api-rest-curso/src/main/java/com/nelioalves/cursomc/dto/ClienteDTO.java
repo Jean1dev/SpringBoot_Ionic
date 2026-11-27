@@ -2,8 +2,8 @@ package com.nelioalves.cursomc.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 

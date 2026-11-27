@@ -1,6 +1,6 @@
 package com.nelioalves.cursomc.domain;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;

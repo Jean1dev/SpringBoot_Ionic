@@ -2,7 +2,7 @@ package com.jean.pedidopj.domain;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;

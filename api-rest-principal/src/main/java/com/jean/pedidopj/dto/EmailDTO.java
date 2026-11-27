@@ -1,7 +1,7 @@
 package com.jean.pedidopj.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 public class EmailDTO implements Serializable {
